@@ -1,31 +1,30 @@
 package com.uece.boleto.controller;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-// import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import com.uece.boleto.domain.BoletoEntity;
+import com.uece.boleto.model.BoletoDTO;
+import com.uece.boleto.service.BoletoService;
 
 @RestController
 @RequestMapping("clientes/{idcliente}/boletos")
 public class BoletoController {
+  @Autowired(required = true)
+  private BoletoService boletoService;
+  @PostMapping()
+  public ResponseEntity<BoletoEntity> adicionaIdBoleto(@PathVariable("idcliente") Integer idcliente, @RequestBody BoletoDTO boleto) {
   
-  /* @GetMapping
-   public String getCliente() {
-    return "lista todos os";
+    boleto.setidCliente(1);
+    
+    BoletoEntity boletosalvo = boletoService.inserir(boleto);
+    return ResponseEntity
+        .status(HttpStatus.CREATED)
+        // .body(boletoService.inserir(boleto));
+        .body(boletosalvo);
   }
-  @GetMapping("/{id}")
-  public String getIdCliente(@PathVariable String id) {
-    return "id = " + id;
-  }
-  @PostMapping("/{id}")
-  public String adicionaIdCliente(@PathVariable String id) {
-    return "post id = " + id;
-  } */
   @GetMapping()
   public String getBoleto(@PathVariable String idcliente) {
     return "lista todos boletos do idcliente =  " + idcliente;

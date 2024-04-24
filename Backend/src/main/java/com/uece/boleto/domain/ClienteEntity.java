@@ -1,12 +1,14 @@
 package com.uece.boleto.domain;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "cliente")
 public class ClienteEntity {
   public ClienteEntity(){}
-  public ClienteEntity(Long id, String nome, String senha) {
+  public ClienteEntity(Integer id, String nome, String senha) {
     this.nome = nome;
     this.id = id;
     this.senha = senha;
@@ -14,19 +16,23 @@ public class ClienteEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private Integer id;
+
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "id")
+  private List<BoletoEntity> boleto;
 
   @Column(name = "nome", nullable = false)
+
   private String nome;
 
   @Column(name = "senha", nullable = false)
   private String senha;
 
-  public Long getId() {
+  public Integer getId() {
     return id;
   }
 
-  public void setId(Long id) {
+  public void setId(Integer id) {
     this.id = id;
   }
 
