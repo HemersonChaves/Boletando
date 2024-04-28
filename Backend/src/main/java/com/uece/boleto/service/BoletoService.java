@@ -7,8 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.uece.boleto.domain.BoletoEntity;
 import com.uece.boleto.domain.BoletoRespository;
-import com.uece.boleto.domain.ClienteEntity;
-import com.uece.boleto.domain.ClienteRepository;
 import com.uece.boleto.model.BoletoDTO;
 
 @Service
@@ -26,8 +24,8 @@ public class BoletoService {
 		}
 	}
 
-	public List<BoletoEntity> listar() {
-		List<BoletoEntity> boletos = (List<BoletoEntity>) boletoRepository.findAll();
+	public List<BoletoDTO> listar(Integer idcliente) {
+		List<BoletoDTO> boletos = (List<BoletoDTO>) boletoRepository.findAllByIdCliente();
 		return boletos;
 	}
 

@@ -1,8 +1,9 @@
 package com.uece.boleto.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import com.uece.boleto.domain.BoletoEntity;
@@ -25,10 +26,16 @@ public class BoletoController {
         // .body(boletoService.inserir(boleto));
         .body(boletosalvo);
   }
+
   @GetMapping()
-  public String getBoleto(@PathVariable String idcliente) {
-    return "lista todos boletos do idcliente =  " + idcliente;
+  public ResponseEntity<List<BoletoDTO>> getBoleto(@PathVariable("idcliente") Integer idcliente) {
+   
+   
+    return ResponseEntity.status(HttpStatus.CREATED)
+        .body(boletoService.listar(idcliente));
   }
+
+
   @GetMapping("/{idboleto}")
   public String getIdBoleto(@PathVariable("idcliente") String idcliente, @PathVariable("idboleto") String idboleto) {
     return "idcleinte  = " + idcliente + " id boleto = "+ idboleto;
